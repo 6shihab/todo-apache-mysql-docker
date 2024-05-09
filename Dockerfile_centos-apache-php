@@ -1,0 +1,17 @@
+FROM centos:7
+
+RUN yum update -y && yum install httpd -y
+
+RUN yum install epel-release yum-utils -y
+RUN yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y
+RUN yum-config-manager --enable remi-php74  # Use appropriate version according to your needs (e.g., remi-php73, remi-php72) -y
+RUN yum install php php-common php-cli -y
+RUN yum install php-mysql -y
+
+
+
+EXPOSE 80
+
+# Start Apache server when the container launches
+CMD ["httpd","-D","FOREGROUND"]
+
